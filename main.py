@@ -72,3 +72,13 @@ df.drop('TARGET', inplace=True, axis = 1)
 df = pd.DataFrame(preprocessor.transform(df))
 
 st.write(df)
+
+df_2 = df.join (np.log10(df), rsuffix='log')
+df_2.replace(to_replace = np.log10(0), value = 2.2250738585072014e-308, inplace = 
+True)
+df_2.fillna(0, inplace=True)
+
+pred = (XGB_reg.predict(df) + log_reg.predict(df_2))/2
+adjusted_pred = [round(i,2) for i in make_it_linear.predict(pred)]
+
+print ('Predicted probability of default:',round(adjusted_pred[0]*100),'%')
