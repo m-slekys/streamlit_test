@@ -31,44 +31,41 @@ file.close()
 path = "csv/test2.csv"
 main = duckdb.read_csv(path)
 
-num = int(st.text_input("Enter ID", value = 0))
+num = int(st.text_input("Enter ID", value = 135287))
 
-#id_valid = duckdb.sql(f'SELECT COUNT (SK_ID_CURR) FROM main WHERE SK_ID_CURR = {id}').fetchall()[0][0]
 
-if num == 0:
-    st.write("NO SUCH ID")
 
-else:
+# Get row from main table
+querry = "SELECT * FROM main WHERE SK_ID_CURR =" + str(id)
+st.write(querry)
 
-    # Get row from main table
-    querry = "SELECT * FROM main WHERE SK_ID_CURR =" + str(id)
-    main = duckdb.sql(querry).fetchdf()
+main = duckdb.sql(querry).fetchdf()
 
-    # Read CSV files as DuckDB relations.
-    path = "E:/M3_capstone/bureau.csv"
-    bureau_csv = duckdb.read_csv(path)
-    path = "E:/M3_capstone/credit_card_balance.csv"
-    credit_card_balance_csv = duckdb.read_csv(path)
-    path = "E:/M3_capstone/installments_payments.csv"
-    installments_payments_csv = duckdb.read_csv(path)
-    path = "E:/M3_capstone/POS_CASH_balance.csv"
-    POS_CASH_balance_csv = duckdb.read_csv(path)
-    path = "E:/M3_capstone/previous_application.csv"
-    previous_application_csv = duckdb.read_csv(path)
+# Read CSV files as DuckDB relations.
+path = "E:/M3_capstone/bureau.csv"
+bureau_csv = duckdb.read_csv(path)
+path = "E:/M3_capstone/credit_card_balance.csv"
+credit_card_balance_csv = duckdb.read_csv(path)
+path = "E:/M3_capstone/installments_payments.csv"
+installments_payments_csv = duckdb.read_csv(path)
+path = "E:/M3_capstone/POS_CASH_balance.csv"
+POS_CASH_balance_csv = duckdb.read_csv(path)
+path = "E:/M3_capstone/previous_application.csv"
+previous_application_csv = duckdb.read_csv(path)
 
-    querry = f"WITH bureau AS ({bureau_query}), \
-    credit_card_balance AS ({credit_card_balance_query}), \
-    installments_payments AS ({installments_payments_query}), \
-    POS_CASH_balance AS ({POS_CASH_balance_query}), \
-    previous_application AS ({previous_application_query}) \
-    SELECT * FROM main AS t LEFT JOIN bureau AS b on t.SK_ID_CURR = b.SK_ID_CURR \
-    LEFT JOIN credit_card_balance AS c on t.SK_ID_CURR = c.SK_ID_CURR \
-    LEFT JOIN installments_payments AS i on t.SK_ID_CURR = i.SK_ID_CURR \
-    LEFT JOIN POS_CASH_balance AS p on t.SK_ID_CURR = p.SK_ID_CURR \
-    LEFT JOIN previous_application AS pa on t.SK_ID_CURR = pa.SK_ID_CURR \
-    \
-    ;"
+querry = f"WITH bureau AS ({bureau_query}), \
+credit_card_balance AS ({credit_card_balance_query}), \
+installments_payments AS ({installments_payments_query}), \
+POS_CASH_balance AS ({POS_CASH_balance_query}), \
+previous_application AS ({previous_application_query}) \
+SELECT * FROM main AS t LEFT JOIN bureau AS b on t.SK_ID_CURR = b.SK_ID_CURR \
+LEFT JOIN credit_card_balance AS c on t.SK_ID_CURR = c.SK_ID_CURR \
+LEFT JOIN installments_payments AS i on t.SK_ID_CURR = i.SK_ID_CURR \
+LEFT JOIN POS_CASH_balance AS p on t.SK_ID_CURR = p.SK_ID_CURR \
+LEFT JOIN previous_application AS pa on t.SK_ID_CURR = pa.SK_ID_CURR \
+\
+;"
 
-    df = duckdb.sql(querry).fetchdf()
+df = duckdb.sql(querry).fetchdf()
 
-    st.write(df)
+st.write(df)
