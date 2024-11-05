@@ -67,7 +67,7 @@ LEFT JOIN previous_application AS pa on t.SK_ID_CURR = pa.SK_ID_CURR \
 
 df = duckdb.sql(querry).fetchdf()
 
-df.drop('TARGET', inplace=True, axis = 1)
+df.drop(['TARGET', 'column000', 'column000_1'], inplace=True, axis = 1)
 st.write(df)
 df = pd.DataFrame(preprocessor.transform(df))
 
