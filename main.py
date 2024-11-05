@@ -33,7 +33,7 @@ main = duckdb.read_csv(path)
 
 num = int(st.text_input("Enter ID", value = 0))
 
-id_valid = duckdb.sql(f'SELECT COUNT (SK_ID_CURR) FROM main WHERE SK_ID_CURR = {id}').fetchall()[0][0]
+#id_valid = duckdb.sql(f'SELECT COUNT (SK_ID_CURR) FROM main WHERE SK_ID_CURR = {id}').fetchall()[0][0]
 
 if id_valid == 0:
     st.write("NO SUCH ID")
