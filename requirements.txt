@@ -2,4 +2,4 @@ duckdb
 pandas
 numpy
 xgboost
-sklearn
+scikit-learn
