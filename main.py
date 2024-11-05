@@ -41,7 +41,7 @@ if num == 0:
 else:
 
     # Get row from main table
-    querry = f"SELECT * FROM main WHERE SK_ID_CURR = {id}"
+    querry = "SELECT * FROM main WHERE SK_ID_CURR =" + str(id)
     main = duckdb.sql(querry).fetchdf()
 
     # Read CSV files as DuckDB relations.
