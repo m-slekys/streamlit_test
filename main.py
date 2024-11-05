@@ -81,5 +81,5 @@ df_2.fillna(0, inplace=True)
 pred = (XGB_reg.predict(df) + log_reg.predict(df_2))/2
 adjusted_pred = [round(i,2) for i in make_it_linear.predict(pred)]
 
-output_text =  'Predicted probability of default:' + str(round(adjusted_pred[0]*100),1) + '%'
+output_text =  'Predicted probability of default:' + str(round(adjusted_pred[0]*100,1)) + '%'
 st.write(output_text)
