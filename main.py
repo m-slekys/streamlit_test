@@ -28,7 +28,7 @@ previous_application_query = file.readline()
 file.close()
 
 #Load main table
-path = "csv/test.csv"
+path = "csv/test2.csv"
 main = duckdb.read_csv(path)
 
 num = int(st.text_input("Enter ID", value = 0))
