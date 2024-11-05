@@ -31,7 +31,7 @@ file.close()
 path = "csv/test2.csv"
 main = duckdb.read_csv(path)
 
-num = int(st.text_input("Enter ID", value = 135287))
+id = int(st.text_input("Enter ID", value = 135287))
 
 
 
