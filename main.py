@@ -37,7 +37,6 @@ id = int(st.text_input("Enter ID", value = 135287))
 
 # Get row from main table
 querry = "SELECT * FROM main WHERE SK_ID_CURR =" + str(id)
-st.write(querry)
 
 main = duckdb.sql(querry).fetchdf()
 
@@ -69,9 +68,10 @@ LEFT JOIN previous_application AS pa on t.SK_ID_CURR = pa.SK_ID_CURR \
 df = duckdb.sql(querry).fetchdf()
 
 df.drop('TARGET', inplace=True, axis = 1)
+st.write(df)
 df = pd.DataFrame(preprocessor.transform(df))
 
-st.write(df)
+
 
 df_2 = df.join (np.log10(df), rsuffix='log')
 df_2.replace(to_replace = np.log10(0), value = 2.2250738585072014e-308, inplace = 
