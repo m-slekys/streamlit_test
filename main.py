@@ -42,15 +42,15 @@ st.write(querry)
 main = duckdb.sql(querry).fetchdf()
 
 # Read CSV files as DuckDB relations.
-path = "E:/M3_capstone/bureau.csv"
+path = "csv/bureau.csv"
 bureau_csv = duckdb.read_csv(path)
-path = "E:/M3_capstone/credit_card_balance.csv"
+path = "csv/credit_card_balance.csv"
 credit_card_balance_csv = duckdb.read_csv(path)
-path = "E:/M3_capstone/installments_payments.csv"
+path = "csv/installments_payments.csv"
 installments_payments_csv = duckdb.read_csv(path)
-path = "E:/M3_capstone/POS_CASH_balance.csv"
+path = "csv/POS_CASH_balance.csv"
 POS_CASH_balance_csv = duckdb.read_csv(path)
-path = "E:/M3_capstone/previous_application.csv"
+path = "csv/previous_application.csv"
 previous_application_csv = duckdb.read_csv(path)
 
 querry = f"WITH bureau AS ({bureau_query}), \
