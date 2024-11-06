@@ -5,7 +5,7 @@ import pandas as pd
 import numpy as np
 
 # Load pickle files
-with open(r'pickle/XGB_model.pkl', 'rb') as input_file:
+with open(r'pickle/xgb_model.pkl', 'rb') as input_file:
     XGB_reg = pickle.load(input_file)
 with open(r'pickle/log_reg_model_log.pkl', 'rb') as input_file:
     log_reg = pickle.load(input_file)
