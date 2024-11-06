@@ -35,7 +35,7 @@ id = int(st.text_input("Enter ID", value = 121007))
 
 test = duckdb.sql(f'SELECT COUNT (SK_ID_CURR) FROM main WHERE SK_ID_CURR = {id}').fetchall()[0][0]
 if test == 0:
-    st.write("NO SUCH ID IN TABLE)
+    st.write("NO SUCH ID IN TABLE")
 else:
 
     # Get row from main table
