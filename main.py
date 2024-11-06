@@ -5,9 +5,9 @@ import pandas as pd
 import numpy as np
 
 # Load pickle files
-with open(r'pickle/XGB_reg.pkl', 'rb') as input_file:
+with open(r'pickle/XGB_model.pkl', 'rb') as input_file:
     XGB_reg = pickle.load(input_file)
-with open(r'pickle/log_reg.pkl', 'rb') as input_file:
+with open(r'pickle/log_reg_model_log.pkl', 'rb') as input_file:
     log_reg = pickle.load(input_file)
 with open(r'pickle/make_it_linear.pkl', 'rb') as input_file:
     make_it_linear = pickle.load(input_file)
@@ -31,12 +31,13 @@ file.close()
 path = "csv/test2.csv"
 main = duckdb.read_csv(path)
 
-id = int(st.text_input("Enter ID:", value = 135287))
+id = int(st.text_input("Enter ID", value = 135287))
 
 
 
 # Get row from main table
 querry = "SELECT * FROM main WHERE SK_ID_CURR =" + str(id)
+st.write(querry)
 
 main = duckdb.sql(querry).fetchdf()
 
@@ -67,11 +68,10 @@ LEFT JOIN previous_application AS pa on t.SK_ID_CURR = pa.SK_ID_CURR \
 
 df = duckdb.sql(querry).fetchdf()
 
-df.drop(['TARGET', 'column000', 'column000_1'], inplace=True, axis = 1)
-st.write(df)
+df.drop('TARGET', inplace=True, axis = 1)
 df = pd.DataFrame(preprocessor.transform(df))
 
-
+st.write(df)
 
 df_2 = df.join (np.log10(df), rsuffix='log')
 df_2.replace(to_replace = np.log10(0), value = 2.2250738585072014e-308, inplace = 
@@ -79,7 +79,6 @@ True)
 df_2.fillna(0, inplace=True)
 
 pred = (XGB_reg.predict(df) + log_reg.predict(df_2))/2
-adjusted_pred = [round(i,4) for i in make_it_linear.predict(pred)]
+adjusted_pred = [round(i,2) for i in make_it_linear.predict(pred)]
 
-output_text =  'Predicted probability of default: ' + str(adjusted_pred[0]*100) + '%'
-st.write(output_text)
+print ('Predicted probability of default:',round(adjusted_pred[0]*100),'%')
