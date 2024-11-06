@@ -70,8 +70,8 @@ else:
     ;"
     
     df = duckdb.sql(querry).fetchdf()
-    st.write(df)
     df.drop(['TARGET', 'column000', 'column000_1'], inplace=True, axis = 1)
+    st.write(df)
     df = pd.DataFrame(preprocessor.transform(df))
     
     
